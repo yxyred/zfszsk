@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.expert.dao.BumExpertExperienceTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.expert.entity.BumExpertExperienceTEntity" id="bumExpertExperienceTMap">
+        <result property="id" column="ID"/>
+        <result property="expertId" column="EXPERT_ID"/>
+        <result property="experience" column="EXPERIENCE"/>
+        <result property="experienceType" column="EXPERIENCE_TYPE"/>
+        <result property="experienceTypeName" column="EXPERIENCE_TYPE_NAME"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+
+</mapper>

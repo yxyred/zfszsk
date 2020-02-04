@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.exam.dao.LawExamUserAnswerTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.exam.entity.LawExamUserAnswerTEntity" id="lawExamUserAnswerTMap">
+        <result property="id" column="ID"/>
+        <result property="typeId" column="TYPE_ID"/>
+        <result property="questionId" column="QUESTION_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="answerResult" column="ANSWER_RESULT"/>
+        <result property="answerScore" column="ANSWER_SCORE"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+
+</mapper>

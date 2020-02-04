@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.expert.dao.BumExpertTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.expert.entity.BumExpertTEntity" id="bumExpertTMap">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="GENDER"/>
+        <result property="area" column="AREA"/>
+        <result property="post" column="POST"/>
+        <result property="unitType" column="UNIT_TYPE"/>
+        <result property="unitTypeName" column="UNIT_TYPE_NAME"/>
+        <result property="unitName" column="UNIT_NAME"/>
+        <result property="expertise" column="EXPERTISE"/>
+        <result property="cert" column="CERT"/>
+        <result property="tel" column="TEL"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.expert.entity.BumExpertTExcelEntity" id="bumExpertTExcelEntity">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="SEX"/>
+        <result property="province" column="PROVINCE"/>
+        <result property="city" column="CITY"/>
+        <result property="unitName" column="WORK_UNIT"/>
+        <result property="expertise" column="EXPERTISE"/>
+        <result property="cert" column="CERT"/>
+        <result property="tel" column="TEL"/>
+        <result property="experience" column="EXPERIENCE"/>
+        <result property="experienceType" column="EXPERIENCE_TYPE"/>
+
+    </resultMap>
+
+
+    <select id="exportByIds" parameterType="map"  resultMap="bumExpertTExcelEntity" >
+        select a.*, b.EXPERIENCE, b.EXPERIENCE_TYPE_NAME from BUM_EXPERT_T as  a
+        left join  BUM_EXPERT_EXPERIENCE_T as b
+        on a.ID = b.EXPERT_ID
+        <where>
+            a.DEL_FLAG != '1' and a.ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectMyPage"  resultMap="bumExpertTExcelEntity" >
+        select distinct(EXPERT_ID), a.* from BUM_EXPERT_T as  a
+        left join  BUM_EXPERT_EXPERIENCE_T as b
+        on a.ID = b.EXPERT_ID
+        <where>
+            a.DEL_FLAG = '0'
+            <if test="ew!=null">
+                <if test="ew.entity!=null">
+                    <if test="ew.entity.expertises!=null and ew.entity.expertises.size>0" >
+                        AND a.EXPERTISE in
+                        <foreach item="expertise" collection="ew.entity.expertises" open="(" separator="," close=")">
+                            #{expertise}
+                        </foreach>
+
+                    </if>
+                    <if test="ew.entity.province!=null and ew.entity.province!=''">
+                        AND a.PROVINCE = #{ew.entity.province}
+                    </if>
+                    <if test="ew.entity.city!=null and ew.entity.city!=''">
+                        AND a.CITY = #{ew.entity.city}
+                    </if>
+                    <if test="ew.entity.experienceTypes!=null and ew.entity.experienceTypes.size>0">
+                        AND b.EXPERIENCE_TYPE in
+                        <foreach item="experienceType" collection="ew.entity.experienceTypes" open="(" separator="," close=")">
+                            #{experienceType}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="ew.sqlSegment!=null">
+                    ${ew.sqlSegment}
+                </if>
+            </if>
+        </where>
+    </select>
+
+</mapper>

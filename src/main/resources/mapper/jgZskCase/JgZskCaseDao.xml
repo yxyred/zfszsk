@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.jgzskcase.dao.JgZskCaseDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.jgzskcase.entity.JgZskCaseEntity" id="jgZskCaseMap">
+        <result property="id" column="ID"/>
+        <result property="caseNumber" column="CASE_NUMBER"/>
+        <result property="caseName" column="CASE_NAME"/>
+        <result property="responsibleUnit" column="RESPONSIBLE_UNIT"/>
+        <result property="settlementDate" column="SETTLEMENT_DATE"/>
+        <!--<result property="contentType" column="CONTENT_TYPE"/>-->
+        <result property="lawTypeId" column="LAW_TYPE_ID"/>
+        <result property="lawTypeName" column="LAW_TYPE_NAME"/>
+        <result property="openWay" column="OPEN_WAY"/>
+        <result property="openRange" column="OPEN_RANGE"/>
+        <result property="openTime" column="OPEN_TIME"/>
+        <result property="briefIntroduction" column="BRIEF_INTRODUCTION"/>
+        <result property="legalAnalysis" column="LEGAL_ANALYSIS"/>
+        <result property="typicalCase" column="TYPICAL_CASE"/>
+        <result property="departmentType" column="DEPARTMENT_TYPE"/>
+        <result property="businessType" column="BUSINESS_TYPE"/>
+        <result property="monitoringMatters" column="MONITORING_MATTERS"/>
+        <result property="field" column="FIELD"/>
+        <result property="cause" column="CAUSE"/>
+        <result property="process" column="PROCESS"/>
+        <result property="disposal" column="DISPOSAL"/>
+        <result property="result" column="RESULT"/>
+        <result property="conclusion" column="CONCLUSION"/>
+        <result property="releaseDate" column="RELEASE_DATE"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+    <!--0-默认，1-删除-->
+    <update id="commonUpdateDelFlagBatch" parameterType="map">
+        update JG_ZSK_CASE_T set DEL_FLAG = #{delFlag}
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="commonUpdateDelFlagAll" parameterType="String">
+        update JG_ZSK_CASE_T set DEL_FLAG = #{delFlag} where DEL_FLAG != '1'
+    </update>
+
+    <!--0-默认，1-发布 2-撤销-->
+    <update id="commonUpdateTypicalCaseBatch" parameterType="map">
+        update JG_ZSK_CASE_T set TYPICAL_CASE = #{typicalCase}
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+</mapper>

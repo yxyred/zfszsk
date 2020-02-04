@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.lawprojectlistt.dao.LawProjectListTDao">
+
+    <!--0-默认，1-发布 2-撤销-->
+    <update id="commonUpdatePubStatusBatch" parameterType="map">
+        update LAW_PROJECT_LIST_T set ISSUE_STATUS = #{pubStatus},ISSUE_DATE = now()
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="commonUpdatePubStatusAll" parameterType="String">
+        update LAW_PROJECT_LIST_T set ISSUE_STATUS = #{pubStatus},ISSUE_DATE = now() where DEL_FLAG != '1'
+    </update>
+
+    <!--0-默认，1-删除-->
+    <update id="commonUpdateDelFlagBatch" parameterType="map">
+        update LAW_PROJECT_LIST_T set DEL_FLAG = #{delFlag}
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="commonUpdateDelFlagAll" parameterType="String">
+        update LAW_PROJECT_LIST_T set DEL_FLAG = #{delFlag} where DEL_FLAG != '1'
+    </update>
+
+</mapper>

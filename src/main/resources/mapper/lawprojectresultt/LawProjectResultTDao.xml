@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.lawprojectresultt.dao.LawProjectResultTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.lawprojectresultt.entity.LawProjectResultTEntity" id="lawProjectResultTMap">
+        <result property="id" column="ID"/>
+        <result property="lawMain" column="LAW_MAIN"/>
+        <result property="lawObject" column="LAW_OBJECT"/>
+        <result property="lawTypeId" column="LAW_TYPE_ID"/>
+        <result property="lawTypeName" column="LAW_TYPE_NAME"/>
+        <result property="lawResult" column="LAW_RESULT"/>
+        <result property="lawResultTime" column="LAW_RESULT_TIME"/>
+        <result property="operationUrl" column="OPERATION_URL"/>
+        <result property="deptName" column="DEPT_NAME"/>
+        <result property="deptId" column="DEPT_ID"/>
+        <result property="drafter" column="DRAFTER"/>
+        <result property="drafterId" column="DRAFTER_ID"/>
+        <result property="tel" column="TEL"/>
+        <result property="pubStatus" column="ISSUE_STATUS"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+    <!--0-默认，1-发布 2-撤销-->
+    <update id="commonUpdatePubStatusBatch" parameterType="map">
+        update LAW_PROJECT_RESULT_T set ISSUE_STATUS = #{pubStatus},ISSUE_DATE = now()
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="commonUpdatePubStatusAll" parameterType="String">
+        update LAW_PROJECT_RESULT_T set ISSUE_STATUS = #{pubStatus},ISSUE_DATE = now() where DEL_FLAG != '1'
+    </update>
+
+    <!--0-默认，1-删除-->
+    <update id="commonUpdateDelFlagBatch" parameterType="map">
+        update LAW_PROJECT_RESULT_T set DEL_FLAG = #{delFlag}
+        <where>
+            DEL_FLAG != '1' and ID in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="commonUpdateDelFlagAll" parameterType="String">
+        update LAW_PROJECT_RESULT_T set DEL_FLAG = #{delFlag} where DEL_FLAG != '1'
+    </update>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.modules.exam.dao.LawExamCorrectTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.css.modules.exam.entity.LawExamCorrectTEntity" id="lawExamCorrectTMap">
+        <result property="id" column="ID"/>
+        <result property="batch" column="BATCH"/>
+        <result property="testId" column="TEST_ID"/>
+        <result property="testName" column="TEST_DESC"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="sysScore" column="SYS_SCORE"/>
+        <result property="userAnswerId" column="USER_ANSWER_ID"/>
+        <result property="caseAnalysisName" column="CASE_ANALYSIS_NAME"/>
+        <result property="status" column="STATUS"/>
+        <result property="synIds" column="SYN_IDS"/>
+        <result property="synScore" column="SYN_SCORE"/>
+        <result property="finalScore" column="FINAL_SCORE"/>
+        <result property="isQualified" column="IS_QUALIFIED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="updateUserId" column="UPDATE_USER_ID"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+
+</mapper>
